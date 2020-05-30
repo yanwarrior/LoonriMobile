@@ -12,8 +12,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'sign-in',
     pathMatch: 'full'
+  },
+  {
+    path: 'sign-in',
+    loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
   },
 ];
 
