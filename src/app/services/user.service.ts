@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, BehaviorSubject } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { UserRegisterSerializer } from '../serializers/user-register-serializer';
 import { UserAfterRegisterSerializer } from '../serializers/user-after-register-serializer';
-import { ToastController } from '@ionic/angular';
+import { ToastController, Platform } from '@ionic/angular';
 import { UserSignInSerializer } from '../serializers/user-sign-in-serializer';
 import { Router } from '@angular/router';
 
@@ -15,13 +15,19 @@ import { Router } from '@angular/router';
 export class UserService {
 
   basePath: string = 'http://192.168.43.60:8000/users';
+  authState = new BehaviorSubject(false);
 
   constructor(
     private storage: Storage,
     private router: Router,
     private toastController: ToastController,
+    private platform: Platform,
     private httpClient: HttpClient
-  ) { }
+  ) {
+    this.platform.ready().then(() => {
+      this.ifSignedIn();
+    });
+  }
 
   async toastError(message) {
     const toast = await this.toastController.create({
@@ -31,22 +37,20 @@ export class UserService {
     toast.present();
   }
 
+  setAuthState(condition: boolean) {
+    this.authState.next(condition);
+  }
+
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
       return throwError(error.error.message);
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-
-      console.log(error);
-
+        `body was: ${error.error}`
+      );
       return throwError(`${error.error.type} ${error.error.fallback_message}`);
-      
     }
   };
 
@@ -58,14 +62,11 @@ export class UserService {
       })
     };
 
-    return this.httpClient.post<UserAfterRegisterSerializer>(
-      url, 
-      JSON.stringify(user),
-      httpOptions
-    ).pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+    return this.httpClient.post<UserAfterRegisterSerializer>(url, JSON.stringify(user), httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
   }
 
   signIn(user: UserSignInSerializer): Observable<UserAfterRegisterSerializer> {
@@ -76,20 +77,36 @@ export class UserService {
       })
     };
 
-    return this.httpClient.post<UserAfterRegisterSerializer>(
-      url, 
-      JSON.stringify(user),
-      httpOptions
-    ).pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+    return this.httpClient.post<UserAfterRegisterSerializer>(url, JSON.stringify(user), httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
   }
 
   saveUserCredential(user: UserAfterRegisterSerializer) {
     this.storage.set('credential', user)
       .then((response) => {
-        this.router.navigate(['home']);
-      })
+        this.router.navigate(['dashboard']);
+      });
+  }
+
+  ifSignedIn() {
+    this.storage.get('credential').then((response) => {
+      if (response) {
+        this.authState.next(true);
+      }
+    });
+  }
+
+  signOut() {
+    this.storage.remove('credential').then(() => {
+      this.router.navigate(['sign-in']);
+      this.authState.next(false);
+    });
+  }
+
+  isAuthenticated() {
+    return this.authState.value;
   }
 }
