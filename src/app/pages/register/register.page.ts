@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserRegisterSerializer } from 'src/app/serializers/user-register-serializer';
 import { UserAfterRegisterSerializer } from 'src/app/serializers/user-after-register-serializer';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,10 @@ export class RegisterPage implements OnInit {
   userRegister: UserRegisterSerializer;
   userAfterRegister: UserAfterRegisterSerializer;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {
     this.userRegister = new UserRegisterSerializer();
   }
 
@@ -24,6 +28,10 @@ export class RegisterPage implements OnInit {
       (error) => {
         this.userService.toastError(error);
       });
+  }
+
+  navigateSignIn() {
+    this.router.navigate(['sign-in']);
   }
 
   ngOnInit() {

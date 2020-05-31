@@ -25,6 +25,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
     canActivate: [GuardService]
   },
+  {
+    path: 'product-list',
+    loadChildren: () => import('./pages/product-list/product-list.module').then( m => m.ProductListPageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'product-edit/:id',
+    loadChildren: () => import('./pages/product-edit/product-edit.module').then( m => m.ProductEditPageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'product-create',
+    loadChildren: () => import('./pages/product-create/product-create.module').then( m => m.ProductCreatePageModule)
+  },
 ];
 
 @NgModule({

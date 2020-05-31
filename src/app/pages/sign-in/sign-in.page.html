@@ -1,17 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>SignIn</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Sign In</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label>Username</ion-label>
-    <ion-input [(ngModel)]="user.username"></ion-input>
+  <ion-item lines="none" padding>
+    <ion-label position="floating">Username</ion-label>
+    <ion-input [(ngModel)]="user.username" placeholder="Enter username"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label>Password</ion-label>
-    <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+  <ion-item lines="none" padding>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input [(ngModel)]="user.password" placeholder="Enter password" type="password"></ion-input>
   </ion-item>
-  <ion-button (click)="signIn()">Sign In</ion-button>
+  <ion-button expand="block" (click)="signIn()">Sign In</ion-button>
+  <ion-button color="light" (click)="navigateToSignUp()" expand="block">Sign Up</ion-button>
+
 </ion-content>

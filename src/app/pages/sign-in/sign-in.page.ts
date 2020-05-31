@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserSignInSerializer } from 'src/app/serializers/user-sign-in-serializer';
 import { UserService } from 'src/app/services/user.service';
-import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,14 +13,8 @@ export class SignInPage implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
-    private platform: Platform
+    private router: Router
   ) {
-    this.platform.ready().then(() => {
-      if (this.userService.ifSignedIn) {
-        this.router.navigate(['dashboard']);
-      }
-    })
     this.user = new UserSignInSerializer();
   }
 
@@ -32,7 +25,6 @@ export class SignInPage implements OnInit {
     this.userService.signIn(this.user)
       .subscribe(
         (response) => {
-          console.log('response :', response);
           this.userService.setAuthState(true);
           this.userService.saveUserCredential(response);
         },
@@ -40,6 +32,10 @@ export class SignInPage implements OnInit {
           this.userService.toastError(error);
         }
       );
+  }
+
+  navigateToSignUp() {
+    this.router.navigate(['register']);
   }
 
 }

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar *ngIf="!searchBar" color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Barang</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showSearchBar()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/product-create']">
+        <ion-icon slot="icon-only" name="add-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="searchBar" color="primary">
+    <!-- <ion-searchbar showCancelButton="always"  animated></ion-searchbar> -->
+    <ion-searchbar showCancelButton="always" (ionChange)="search($event)" (ionCancel)="hideSearchBar()" debounce="500" placeholder="Search an item"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-list *ngIf="products">
+    <ion-item lines="full" *ngFor="let product of products.results">
+      <ion-label>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.product_number }} Rp. {{ product.price }}/{{ product.unit }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button [routerLink]="['/product-edit', product.id]">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll *ngIf="products && products.next" (ionInfinite)="cursor($event, products.next)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

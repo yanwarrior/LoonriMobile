@@ -8,13 +8,15 @@ import { UserAfterRegisterSerializer } from '../serializers/user-after-register-
 import { ToastController, Platform } from '@ionic/angular';
 import { UserSignInSerializer } from '../serializers/user-sign-in-serializer';
 import { Router } from '@angular/router';
+import { BASE_URL } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  basePath: string = 'http://192.168.43.60:8000/users';
+  basePath: string = `${BASE_URL}/users`;
   authState = new BehaviorSubject(false);
 
   constructor(
@@ -87,7 +89,7 @@ export class UserService {
   saveUserCredential(user: UserAfterRegisterSerializer) {
     this.storage.set('credential', user)
       .then((response) => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['product-list']);
       });
   }
 

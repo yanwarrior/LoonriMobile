@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Barang Baru</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="create()">
+        <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-label position="stacked">Kode Barang *</ion-label>
+    <ion-input disabled [(ngModel)]="product.product_number"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Nama Barang *</ion-label>
+    <ion-input [(ngModel)]="product.name"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Satuan *</ion-label>
+    <ion-input [(ngModel)]="product.unit"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Harga (Rp) *</ion-label>
+    <ion-input [(ngModel)]="product.price" type="number"></ion-input>
+  </ion-item>
+</ion-content>

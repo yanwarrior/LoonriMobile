@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar *ngIf="!searchBar" color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Etalase</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="showSearchBar()">
@@ -26,9 +29,11 @@
           <p>BRG-000{{ i }} Rp. 34.000/pcs</p>
         </ion-text>
       </ion-label>
-      <ion-button (click)="test()" size="small" color="primary" slot="end">
-        Pilih
-      </ion-button>
+      <ion-buttons slot="end">
+        <ion-button (click)="test()">
+          <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 </ion-content>
