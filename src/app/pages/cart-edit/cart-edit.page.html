@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cart Edit</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="delete()" color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+      <ion-button (click)="patch()">
+        <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-label position="stacked">Kode Barang</ion-label>
+    <ion-input [value]="cart.product_number" disabled></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Harga per satuan</ion-label>
+    <ion-input [value]="cart.price" disabled></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Nama Barang</ion-label>
+    <ion-input [value]="cart.name" disabled></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Total</ion-label>
+    <ion-input [value]="cart.total" disabled></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Kuantitas</ion-label>
+    <ion-input [(ngModel)]="cart.quantity" type="number"></ion-input>
+  </ion-item>
+</ion-content>

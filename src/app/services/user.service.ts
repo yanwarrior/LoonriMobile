@@ -89,7 +89,7 @@ export class UserService {
   saveUserCredential(user: UserAfterRegisterSerializer) {
     this.storage.set('credential', user)
       .then((response) => {
-        this.router.navigate(['product-list']);
+        this.router.navigate(['etalase']);
       });
   }
 

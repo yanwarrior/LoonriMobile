@@ -37,7 +37,28 @@ const routes: Routes = [
   },
   {
     path: 'product-create',
-    loadChildren: () => import('./pages/product-create/product-create.module').then( m => m.ProductCreatePageModule)
+    loadChildren: () => import('./pages/product-create/product-create.module').then( m => m.ProductCreatePageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'sign-out',
+    loadChildren: () => import('./pages/sign-out/sign-out.module').then( m => m.SignOutPageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'etalase',
+    loadChildren: () => import('./pages/etalase/etalase.module').then( m => m.EtalasePageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'cart-list',
+    loadChildren: () => import('./pages/cart-list/cart-list.module').then( m => m.CartListPageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'cart-edit/:id',
+    loadChildren: () => import('./pages/cart-edit/cart-edit.module').then( m => m.CartEditPageModule),
+    canActivate: [GuardService]
   },
 ];
 

@@ -44,7 +44,7 @@ export class AppComponent {
     this.navigate = [
       {
         title: 'Etalase',
-        url: '/dashboard',
+        url: '/etalase',
         icon: 'pricetags-outline'
       },
       {
@@ -59,7 +59,7 @@ export class AppComponent {
       },
       {
         title: 'Keluar',
-        url: '/sign-in',
+        url: '/sign-out',
         icon: 'log-out-outline'
       }
     ]

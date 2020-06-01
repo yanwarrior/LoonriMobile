@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Daftar Keranjang</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <app-cart-summary></app-cart-summary>
+  <ion-list>
+    <ion-item lines="full" *ngFor="let cart of carts.results" >
+      <ion-label slot="start">
+        <h2>{{ cart.name }}</h2>
+        <p>{{ cart.product_number }} Rp.{{ cart.total }} @ {{ cart.price }}x{{ cart.quantity }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button [routerLink]="['/cart-edit', cart.id]">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

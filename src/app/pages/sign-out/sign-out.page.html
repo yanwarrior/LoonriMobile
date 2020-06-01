@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Out</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item padding lines="none">
+    <ion-text color="danger">
+      <h4>
+        Are you sure you want to exit the application?
+        Click the button in the upper right corner to exit!
+      </h4>
+    </ion-text>
+  </ion-item>
+</ion-content>
