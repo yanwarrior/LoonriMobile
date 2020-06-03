@@ -60,7 +60,7 @@ export class AppComponent {
         icon: 'pricetags-outline'
       },
       {
-        title: 'Barang',
+        title: 'Layanan',
         url: '/product-list',
         icon: 'cube-outline'
       },
