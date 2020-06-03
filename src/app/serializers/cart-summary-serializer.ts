@@ -1,4 +1,4 @@
 export class CartSummarySerializer {
-  total: number;
-  item: number;
+  total: number = 0;
+  item: number = 0;
 }

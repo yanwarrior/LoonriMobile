@@ -4,7 +4,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { ProductPaginateSerializer } from 'src/app/serializers/product-paginate-serializer';
 import { Storage } from '@ionic/storage';
 import { CartService } from 'src/app/services/cart.service';
-import { CartSerializer } from 'src/app/serializers/cart-serializer';
 import { ProductSerializer } from 'src/app/serializers/product-serializer';
 import { CartAddSerializer } from 'src/app/serializers/cart-add-serializer';
 
@@ -31,6 +30,7 @@ export class EtalasePage implements OnInit {
 
   ionViewWillEnter() {
     this.all();
+    this.cartService.total();
   }
 
   showSearchBar() {

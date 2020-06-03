@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar *ngIf="!searchBar" color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Transaksi Cucian</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showSearchBar()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="['/cart-list']">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="searchBar" color="primary">
+    <ion-searchbar showCancelButton="always" (ionChange)="search($event)" (ionCancel)="hideSearchBar()" debounce="500" placeholder="Search"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment scrollable color="primary" value="WASHED" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="WASHED">
+      <ion-label>Dicuci</ion-label>
+      <ion-icon name="archive-outline"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="COMPLETED">
+      <ion-label>Selesai</ion-label>
+      <ion-icon name="file-tray-full-outline"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="TAKED">
+      <ion-label>Ambil</ion-label>
+      <ion-icon name="arrow-redo-circle-outline"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-list>
+    <ion-item-sliding *ngFor="let acceptance of acceptances.results">
+      <ion-item-options side="end">
+        <ion-item-option (click)="sendSMS(acceptance)" color="secondary">
+          <ion-icon name="mail-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+        <ion-item-option [routerLink]="['/acceptance-detail', acceptance.id]">
+          <ion-icon name="information-circle-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="start">
+        <ion-item-option *ngIf="acceptance.status === 'WASHED'" (click)="completed(acceptance)">
+          SELESAIKAN
+        </ion-item-option>
+        <ion-item-option *ngIf="acceptance.status === 'COMPLETED'" (click)="taked(acceptance)">
+          AMBIL
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item lines="full" >
+        <ion-label>
+          <h2>
+            <strong>{{ acceptance.acceptance_number }}</strong> - 
+            <ion-text [color]="acceptance.attr_color_payment_status">
+              {{ acceptance.payment_status }}
+            </ion-text>
+          </h2>
+          <small>
+            {{ acceptance.customer_name }} - {{ acceptance.acceptance_date }}
+          </small>
+          <!-- <p>
+            <ion-badge></ion-badge>
+            <ion-badge>Rp. {{ acceptance.down_payment }}</ion-badge>
+            <ion-badge>Rp. {{ acceptance.residual }}</ion-badge>
+            <ion-chip>
+              <ion-label color="secondary">Rp. {{ acceptance.total }}</ion-label>
+            </ion-chip>
+          </p> -->
+        </ion-label>
+        <ion-text slot="end">
+          <strong>Rp. {{ acceptance.total }}</strong>
+        </ion-text>
+        <!-- <ion-badge slot="end" [color]="acceptance.attr_color_payment_status">{{ acceptance.payment_status }}</ion-badge> -->
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="acceptances && acceptances.next" (ionInfinite)="cursor($event, acceptances.next)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

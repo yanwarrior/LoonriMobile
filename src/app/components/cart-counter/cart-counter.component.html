@@ -1,4 +1,4 @@
-<ion-button [routerLink]="['/cart-list']" >
+<ion-button *ngIf="cartService.getSummary().item > 0" [routerLink]="['/cart-list']" >
   <ion-icon name="cart-outline" color="light"></ion-icon>
   <ion-badge color="danger">{{ cartService.getSummary().item }}</ion-badge>
 </ion-button>

@@ -43,7 +43,6 @@ export class ProductListPage implements OnInit {
     this.productService.all(credential).subscribe(
       (response) => {
         this.products = response;
-        console.log(this.products);
       },
       (error) => {
         console.log(error);

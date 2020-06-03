@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Buat Penerimaan</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="create()">Simpan</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none">
+    <ion-text>
+      <h2>Penerimaan</h2>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Nomor Penerimaan</ion-label>
+    <ion-input readonly [value]="acceptance.acceptance_number"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Tanggal Penerimaan</ion-label>
+    <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="acceptance.acceptance_date" display-timezone="utc"></ion-datetime>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-text>
+      <h2>Pelanggan</h2>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Nama Pelanggan</ion-label>
+    <ion-input [(ngModel)]="acceptance.customer_name"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Nomor HP Pelanggan</ion-label>
+    <ion-input [(ngModel)]="acceptance.customer_phone" inputmode="tel"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Alamat Pelanggan</ion-label>
+    <ion-textarea [(ngModel)]="acceptance.customer_address"></ion-textarea>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-text>
+      <h2>Pembayaran</h2>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Total</ion-label>
+    <ion-input type="decimal" readonly [(ngModel)]="acceptance.total"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">DP</ion-label>
+    <ion-input (ionInput)="calculateResidual()"  type="number" required minlength="0" [maxlength]="acceptance.total" [(ngModel)]="acceptance.down_payment"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="stacked">Sisa</ion-label>
+    <ion-input readonly inputmode="number" [value]="acceptance.residual"></ion-input>
+  </ion-item>
+</ion-content>

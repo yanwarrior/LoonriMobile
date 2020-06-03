@@ -1,27 +1,42 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Register</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content>
-  <ion-item lines="none" >
-    <ion-label position="stacked">Username</ion-label>
-    <ion-input [(ngModel)]="userRegister.username" placeholder="Enter username"></ion-input>
-  </ion-item>
-
-  <ion-item lines="none">
-    <ion-label position="stacked">Email</ion-label>
-    <ion-input type="email" [(ngModel)]="userRegister.email" placeholder="Enter email"></ion-input>
-  </ion-item>
-
-  <ion-item lines="none">
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input type="password" [(ngModel)]="userRegister.password" placeholder="Enter password"></ion-input>
-  </ion-item>
-
-  <ion-button expand="block" (click)="register()">
-    Sign Up
-  </ion-button>
-  <ion-button color="light" (click)="navigateSignIn()" expand="block">Sign In</ion-button>
+<ion-content color="light">
+  <div class="card-center">
+    <ion-card>
+      <ion-card-header color="primary">
+        <ion-card-subtitle>Loonri</ion-card-subtitle>
+        <ion-card-title>Sign Up</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input [(ngModel)]="userRegister.username" placeholder="Enter username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="userRegister.email" placeholder="Enter email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="userRegister.password" placeholder="Enter password"></ion-input>
+      </ion-item>
+      <ion-card-content>
+        <ion-button expand="block" (click)="register()">
+          Sign Up Now
+        </ion-button>
+        <br>
+        <ion-text color="medium">
+          Jika sebelumnya Anda sudah mendaftar, silahkan
+          <a [routerLink]="['/sign-in']">Sign In</a> untuk 
+          masuk ke dalam sistem.
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

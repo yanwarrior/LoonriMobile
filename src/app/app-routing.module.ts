@@ -60,6 +60,21 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cart-edit/cart-edit.module').then( m => m.CartEditPageModule),
     canActivate: [GuardService]
   },
+  {
+    path: 'acceptance-create',
+    loadChildren: () => import('./pages/acceptance-create/acceptance-create.module').then( m => m.AcceptanceCreatePageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'acceptance-list',
+    loadChildren: () => import('./pages/acceptance-list/acceptance-list.module').then( m => m.AcceptanceListPageModule),
+    canActivate: [GuardService]
+  },
+  {
+    path: 'acceptance-detail/:id',
+    loadChildren: () => import('./pages/acceptance-detail/acceptance-detail.module').then( m => m.AcceptanceDetailPageModule),
+    canActivate: [GuardService]
+  },
 ];
 
 @NgModule({

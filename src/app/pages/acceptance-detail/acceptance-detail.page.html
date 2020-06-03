@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transaksi {{ acceptance.acceptance_number }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-divider color="light">
+    <ion-icon slot="start" name="receipt-outline"></ion-icon>
+    <ion-label>
+      Transaksi
+    </ion-label>
+  </ion-item-divider>
+
+  <ion-item lines="full">
+    <ion-label>
+      <h2>Nomor Transaksi</h2>
+    </ion-label>
+    <ion-text slot="end">
+      <strong>{{ acceptance.acceptance_number }}</strong>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label>
+      <h2>Tanggal</h2>
+    </ion-label>
+    <ion-text slot="end">
+      <strong>{{ acceptance.acceptance_date }}</strong>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label>
+      <h2>Status Cucian</h2>
+    </ion-label>
+    <ion-note slot="end">
+      <ion-badge color="light">{{ acceptance.attr_status }}</ion-badge>
+    </ion-note>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label>
+      <h2>Status Pembayaran</h2>
+    </ion-label>
+    <ion-note slot="end">
+      <ion-badge [color]="acceptance.attr_color_payment_status">{{ acceptance.payment_status }}</ion-badge>
+    </ion-note>
+  </ion-item>
+  <ion-item-divider color="light">
+    <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+    <ion-label>
+      Kustomer
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="full">
+    <ion-label class="ion-text-wrap">
+      <h2>{{ acceptance.customer_name }}</h2>
+      <p>
+        {{ acceptance.customer_address }}
+      </p>
+    </ion-label>
+    <ion-text slot="end">
+      <strong>{{ acceptance.customer_phone }}</strong>
+    </ion-text>
+  </ion-item>
+  <ion-item-divider color="light">
+    <ion-icon slot="start" name="list-circle-outline"></ion-icon>
+    <ion-label>
+      Daftar Item
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="full" *ngFor="let item of items.results">
+    <ion-label>
+      <h3>{{ item.product_name }}</h3>
+      <p>{{ item.quantity }} x {{ item.price }}/{{ item.unit }}</p>
+    </ion-label>
+    <ion-text slot="end">
+      <strong>Rp. {{ item.sub_total }}</strong>
+    </ion-text>
+  </ion-item>
+  <ion-item-divider color="light">
+    <ion-icon slot="start" name="wallet-outline"></ion-icon>
+    <ion-label>
+      Detail Pembayaran
+    </ion-label>
+  </ion-item-divider>
+  <ion-item lines="full">
+    <ion-label class="ion-text-wrap">
+      Total
+    </ion-label>
+    <ion-text slot="end">
+      <strong>Rp. {{ acceptance.total }}</strong>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label class="ion-text-wrap">
+      Dibayar
+    </ion-label>
+    <ion-text slot="end">
+      <strong>Rp. {{ acceptance.down_payment }}</strong>
+    </ion-text>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label class="ion-text-wrap">
+      Piutang
+    </ion-label>
+    <ion-text slot="end">
+      <strong>Rp. {{ acceptance.residual }}</strong>
+    </ion-text>
+  </ion-item>
+</ion-content>

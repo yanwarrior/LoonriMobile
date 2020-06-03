@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { GuardService } from './services/guard.service';
 import { AuthService } from './services/auth.service';
 
+import { SMS } from '@ionic-native/sms/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +31,8 @@ import { AuthService } from './services/auth.service';
     SplashScreen,
     GuardService,
     AuthService,
+    SMS,
+    AndroidPermissions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

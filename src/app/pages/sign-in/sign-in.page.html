@@ -1,19 +1,29 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Sign In</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-item lines="none" padding>
-    <ion-label position="floating">Username</ion-label>
-    <ion-input [(ngModel)]="user.username" placeholder="Enter username"></ion-input>
-  </ion-item>
-  <ion-item lines="none" padding>
-    <ion-label position="floating">Password</ion-label>
-    <ion-input [(ngModel)]="user.password" placeholder="Enter password" type="password"></ion-input>
-  </ion-item>
-  <ion-button expand="block" (click)="signIn()">Sign In</ion-button>
-  <ion-button color="light" (click)="navigateToSignUp()" expand="block">Sign Up</ion-button>
-
+<ion-content color="light">
+  <div class="card-center">
+    <ion-card>
+      <ion-card-header color="primary">
+        <ion-card-subtitle>Loonri</ion-card-subtitle>
+        <ion-card-title>Sign In</ion-card-title>
+      </ion-card-header>
+      <ion-item lines="full">
+        <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input size="large" [(ngModel)]="user.username" placeholder="Enter username"></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="user.password" placeholder="Enter password" type="password"></ion-input>
+      </ion-item>
+      <ion-card-content>
+        <ion-button expand="block" (click)="signIn()">Sign In Now</ion-button>
+        <br>
+        <ion-text color="medium">
+          Jika Anda belum mendaftar, silahkan
+          <a [routerLink]="['/register']">Sign Up</a> untuk 
+          menggunkaan aplikasi ini.
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

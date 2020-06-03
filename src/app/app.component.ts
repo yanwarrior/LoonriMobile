@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserService } from './services/user.service';
 import { Router } from '@angular/router';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,12 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private androidPermissions: AndroidPermissions
   ) {
     this.sideMenu();
     this.initializeApp();
+    this.permissions();
   }
 
   initializeApp() {
@@ -40,6 +43,15 @@ export class AppComponent {
     });
   }
 
+  permissions() {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      result => console.log('Has permission?', result.hasPermission),
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    );
+
+    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.SEND_SMS, this.androidPermissions.PERMISSION.BROADCAST_SMS]);
+  }
+
   sideMenu() {
     this.navigate = [
       {
@@ -53,9 +65,19 @@ export class AppComponent {
         icon: 'cube-outline'
       },
       {
-        title: 'Penerimaan',
-        url: '/product-list',
+        title: 'Transaksi Cucian',
+        url: '/acceptance-list',
         icon: 'file-tray-stacked-outline'
+      },
+      {
+        title: 'Tentang Aplikasi',
+        url: '/acceptance-list',
+        icon: 'flask-outline'
+      },
+      {
+        title: 'Penyimpanan',
+        url: '/acceptance-list',
+        icon: 'cloud-outline'
       },
       {
         title: 'Keluar',

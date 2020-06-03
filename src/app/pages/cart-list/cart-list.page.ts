@@ -22,8 +22,8 @@ export class CartListPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.all();
     this.cartService.total();
+    this.all();
   }
 
   async all() {
