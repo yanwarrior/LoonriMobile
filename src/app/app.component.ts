@@ -71,13 +71,8 @@ export class AppComponent {
       },
       {
         title: 'Tentang Aplikasi',
-        url: '/acceptance-list',
+        url: '/about',
         icon: 'flask-outline'
-      },
-      {
-        title: 'Penyimpanan',
-        url: '/acceptance-list',
-        icon: 'cloud-outline'
       },
       {
         title: 'Keluar',
