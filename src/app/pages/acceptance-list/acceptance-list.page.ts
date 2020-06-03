@@ -4,6 +4,7 @@ import { AcceptanceService } from 'src/app/services/acceptance.service';
 import { Storage } from '@ionic/storage';
 import { CredentialSerializer } from 'src/app/serializers/credential-serializer';
 import { SMS } from '@ionic-native/sms/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-acceptance-list',
@@ -14,10 +15,12 @@ export class AcceptanceListPage implements OnInit {
   protected acceptances: AcceptancePaginateSerializer = new AcceptancePaginateSerializer();
   protected searchBar: boolean = false;
   protected status: string = 'WASHED';
+
   constructor(
     private acceptanceService: AcceptanceService,
     private storage: Storage,
-    private sms: SMS
+    private sms: SMS,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -54,8 +57,6 @@ export class AcceptanceListPage implements OnInit {
   }
 
   async search(e) {
-    // if (e.detail.value && e.detail.value.trim() !== '') {
-    
     let credential: CredentialSerializer = await this.storage.get('credential');
     this.acceptanceService.search(credential, e.detail.value, this.status).subscribe(
       (response) => {
@@ -71,9 +72,14 @@ export class AcceptanceListPage implements OnInit {
   async completed(acceptance: AcceptanceSerializer) {
     const credential: CredentialSerializer = await this.storage.get('credential');
     this.acceptanceService.completed(credential, acceptance.id).subscribe(
-      (response) => {
-        this.sendSMS(response);
+      async (response) => {
+        const toast = await this.toastController.create({
+          message: 'Transaction status successfully changed to complete',
+          duration: 2000
+        });
+        toast.present();
         this.filter();
+        this.sendSMS(response);
       },
       (error) => {
         console.log(error);
@@ -84,7 +90,12 @@ export class AcceptanceListPage implements OnInit {
   async taked(acceptance: AcceptanceSerializer) {
     const credential: CredentialSerializer = await this.storage.get('credential');
     this.acceptanceService.taked(credential, acceptance.id).subscribe(
-      (response) => {
+      async (response) => {
+        const toast = await this.toastController.create({
+          message: 'Transaction status successfully changed to take',
+          duration: 2000
+        });
+        toast.present();
         this.sendSMS(response);
         this.filter();
       },
@@ -110,9 +121,23 @@ export class AcceptanceListPage implements OnInit {
     );
   }
 
-  sendSMS(acceptance: AcceptanceSerializer): void {
+  sendSMS(acceptance: AcceptanceSerializer): void{
     const message: string = `Halo ${acceptance.customer_name}. Cucian Anda "${acceptance.acceptance_number}" saat ini "${acceptance.attr_status}"`
-    this.sms.send(acceptance.customer_phone, message);
+    this.sms.send(acceptance.customer_phone, message)
+      .then(async () => {
+        const toast = await this.toastController.create({
+          message: 'Message sent to the customer',
+          duration: 2000
+        })
+        toast.present();
+      })
+      .catch(async () => {
+        const toast = await this.toastController.create({
+          message: 'An error occurred while sending the message. Make sure you have enough credit!',
+          duration: 2000
+        });
+        toast.present();
+      })
   }
 
 }

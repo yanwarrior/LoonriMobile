@@ -7,6 +7,7 @@ import { AcceptanceSerializer } from 'src/app/serializers/acceptance-serializer'
 import { CartService } from 'src/app/services/cart.service';
 import { SMS } from '@ionic-native/sms/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-acceptance-create',
@@ -21,7 +22,8 @@ export class AcceptanceCreatePage implements OnInit {
     private acceptanceService: AcceptanceService,
     private router: Router,
     private cartService: CartService,
-    private sms: SMS
+    private sms: SMS,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -57,7 +59,13 @@ export class AcceptanceCreatePage implements OnInit {
       (response) => {
         this.acceptanceService.cartToItem(credential, response.id).subscribe(
           async (response) => {
-            this.sendSMS(response).then(() => {
+
+            this.sendSMS(response).then(async () => {
+              const toast = await this.toastController.create({
+                message: 'Success create transaction and send sms to customer',
+                duration: 2000
+              });
+              toast.present();
               this.router.navigate(['etalase']);
             })
           },
@@ -72,11 +80,11 @@ export class AcceptanceCreatePage implements OnInit {
     )
   }
 
-  async sendSMS(acceptance: AcceptanceSerializer) {
+  sendSMS(acceptance: AcceptanceSerializer): Promise<any> {
     const message: string = `
       Halo ${acceptance.customer_name}. \n
       ${acceptance.acceptance_number} adalah nomer transaksi cucian Anda. \n
       Harap disimpan dengan baik untuk mengambil cucian nanti!`;
-    await this.sms.send(acceptance.customer_phone, message);
+    return this.sms.send(acceptance.customer_phone, message); 
   }
 }
