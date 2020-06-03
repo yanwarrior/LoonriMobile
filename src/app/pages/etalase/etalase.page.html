@@ -8,7 +8,6 @@
       <ion-button (click)="showSearchBar()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
-      <app-cart-counter></app-cart-counter>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar *ngIf="searchBar" color="primary">
@@ -30,7 +29,11 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
+
+  <app-cart-counter></app-cart-counter>
+
   <ion-infinite-scroll *ngIf="products && products.next" (ionInfinite)="cursor($event, products.next)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+</ion-content>  

@@ -4,9 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Buat Penerimaan</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="create()">Simpan</ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -58,4 +55,10 @@
     <ion-label position="stacked">Sisa</ion-label>
     <ion-input readonly inputmode="number" [value]="acceptance.residual"></ion-input>
   </ion-item>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="create()">
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

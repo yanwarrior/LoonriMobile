@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductSerializer } from 'src/app/serializers/product-serializer';
 import { CartAddSerializer } from 'src/app/serializers/cart-add-serializer';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-etalase',
@@ -21,7 +22,8 @@ export class EtalasePage implements OnInit {
   constructor(
     private productService: ProductService,
     private storage: Storage,
-    private cartService: CartService
+    private cartService: CartService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -92,8 +94,12 @@ export class EtalasePage implements OnInit {
     this.cart.product = product.id;
     const credential: CredentialSerializer = await this.storage.get('credential');
     this.cartService.add(credential, this.cart).subscribe(
-      (response) => {
-        console.log(response);
+      async (response) => {
+        const toast = await this.toastController.create({
+          message: 'Layanan berhasil ditambahkan ke keranjang.',
+          duration: 300,
+        });
+        toast.present();
         this.cartService.total();
       },
       (error) => {

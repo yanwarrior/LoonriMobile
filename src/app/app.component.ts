@@ -30,7 +30,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.statusBar.hide();
+      this.statusBar.backgroundColorByHexString("3880ff");
       this.splashScreen.hide();
 
       this.userService.authState.subscribe(state => {
