@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AcceptanceListPageRoutingModule } from './acceptance-list-routing.module';
 
 import { AcceptanceListPage } from './acceptance-list.page';
+import { CartCounterComponent } from 'src/app/components/cart-counter/cart-counter.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { AcceptanceListPage } from './acceptance-list.page';
     IonicModule,
     AcceptanceListPageRoutingModule
   ],
-  declarations: [AcceptanceListPage]
+  declarations: [
+    AcceptanceListPage,
+    CartCounterComponent
+  ]
 })
 export class AcceptanceListPageModule {}

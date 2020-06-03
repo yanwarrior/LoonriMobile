@@ -8,9 +8,6 @@
       <ion-button (click)="showSearchBar()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/cart-list']">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-      </ion-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar *ngIf="searchBar" color="primary">
